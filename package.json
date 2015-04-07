@@ -1,0 +1,41 @@
+{
+  "name": "movies-list",
+  "version": "0.1.0",
+  "description": "Interview task, https://gist.github.com/ivo-/58290a9ee411813a6894. Project template from https://github.com/Granze/react-starterify by Maurizio Mangione",
+  "main": "app.cjsx",
+  "repository": {
+    "type": "git"
+  },
+  "keywords": [
+    "react",
+    "interview-task"
+  ],
+  "author": "Veselin Nikolov",
+  "license": "MIT",
+  "browserify": {
+    "transform": [
+      "coffee-reactify"
+    ]
+  },
+  "dependencies": {
+    "lodash": "^3.6.0",
+    "jquery": "^2.1.1",
+    "react": "^0.13.0"
+  },
+  "devDependencies": {
+    "browser-sync": "^1.6.2",
+    "browserify": "^9.0.3",
+    "coffee-reactify": "^3.0.0",
+    "gulp": "^3.8.11",
+    "gulp-autoprefixer": "1.0.1",
+    "gulp-changed": "^1.0.0",
+    "gulp-csso": "^0.2.9",
+    "gulp-jasmine": "^2.0.1",
+    "gulp-notify": "^2.2.0",
+    "gulp-sourcemaps": "^1.5.1",
+    "reactify": "^0.15.2",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0",
+    "watchify": "^2.6.0"
+  }
+}
