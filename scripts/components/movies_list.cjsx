@@ -37,6 +37,22 @@ module.exports = React.createClass
       })
     )
 
+  addToFavourites: (movieId) ->
+    Backend.addToFavourites(movieId)
+    .done((movies) =>
+      @setState({
+        movies: movies
+      })
+    )
+
+  removeFromFavourites: (movieId) ->
+    Backend.removeFromFavourites(movieId)
+    .done((movies) =>
+      @setState({
+        movies: movies
+      })
+    )
+
   render: () ->
     favouriteMovies = null
     otherMovies = null
@@ -45,6 +61,9 @@ module.exports = React.createClass
       if @state.movies.favourites.length
         favouriteMovies = @state.movies.favourites.map((movie) =>
           <div key={movie.id}>
+            <button className='btn btn-default' onClick={_.partial(@removeFromFavourites, movie.id)}>
+              <span className='glyphicon glyphicon-star'></span>
+            </button>
             <span>{movie.title}, {movie.id}</span>
             <button className='btn btn-default' onClick={_.partial(@moveFavouriteMovieUp, movie.id)}>
               <span className='glyphicon glyphicon-arrow-up'></span>
@@ -56,8 +75,13 @@ module.exports = React.createClass
         )
 
       if @state.movies.other.length
-        otherMovies = @state.movies.other.map((movie) ->
-          <div key={movie.id}>{movie.title}, {movie.id}</div>
+        otherMovies = @state.movies.other.map((movie) =>
+          <div key={movie.id}>
+            <button className='btn btn-default' onClick={_.partial(@addToFavourites, movie.id)}>
+              <span className='glyphicon glyphicon-star-empty'></span>
+            </button>
+            <span>{movie.title}, {movie.id}</span>
+          </div>
         )
 
     <div className='container'>

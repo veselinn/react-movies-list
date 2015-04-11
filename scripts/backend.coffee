@@ -25,7 +25,7 @@ module.exports = {
   removeFromFavourites: (movieId) ->
     favouriteMoviesOrder = JSON.parse(localStorage.getItem('favouriteMoviesIds'))
 
-    favouriteMoviesOrder = _.remove(favouriteMoviesOrder, movieId)
+    favouriteMoviesOrder = _.filter(favouriteMoviesOrder, (mId) -> mId != movieId)
 
     localStorage.setItem('favouriteMoviesIds', JSON.stringify(favouriteMoviesOrder))
 
