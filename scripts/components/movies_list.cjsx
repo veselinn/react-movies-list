@@ -6,7 +6,6 @@ Backend = require('../backend')
 module.exports = React.createClass
   getInitialState: () ->
     {
-      loadingMovies: true
       movies: {}
     }
 
@@ -17,15 +16,12 @@ module.exports = React.createClass
     Backend.loadMovies()
     .done((movies) =>
       @setState({
-        loadingMovies: false
         movies: movies
       })
     )
 
   moveFavouriteMovieUp: (movieId) ->
-    @setState({
-      loadingMovies: false
-    })
+
     Backend.moveFavouriteMovieUp(movieId)
     .done((movies) =>
       @setState({
@@ -34,9 +30,6 @@ module.exports = React.createClass
     )
 
   moveFavouriteMovieDown: (movieId) ->
-    @setState({
-      loadingMovies: false
-    })
     Backend.moveFavouriteMovieDown(movieId)
     .done((movies) =>
       @setState({
@@ -67,25 +60,20 @@ module.exports = React.createClass
           <div key={movie.id}>{movie.title}, {movie.id}</div>
         )
 
-    content = if @state.loadingMovies
-      <h1>Loading movies...</h1> 
-    else
-      <div>
-        <h1>Welcome to React Movielist</h1>
-        <div>
-          <h2>Favourite movies</h2>
-          {favouriteMovies}
-        </div>
-        <div>
-          <h2>Other movies</h2>
-          {otherMovies}
-        </div>
-      </div>
-
     <div className='container'>
       <div className='row'>
         <div className='col-md-8 col-md-offset-2'>
-          {content}
+          <div>
+            <h1>Welcome to React Movielist</h1>
+            <div>
+              <h2>Favourite movies</h2>
+              {favouriteMovies}
+            </div>
+            <div>
+              <h2>Other movies</h2>
+              {otherMovies}
+            </div>
+          </div>
         </div>
       </div>
     </div>

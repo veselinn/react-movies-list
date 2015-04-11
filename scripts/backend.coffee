@@ -60,7 +60,6 @@ module.exports = {
     @loadMovies(favouriteMoviesOrder)
 
   loadMovies: (favouriteMoviesOrder = JSON.parse(localStorage.getItem('favouriteMoviesIds'))) ->
-    # favouriteMoviesOrder = JSON.parse(localStorage.getItem('favouriteMoviesIds'))
 
     [favouriteMovies, otherMovies] = _.partition(data, (movie) ->
       movie.id in favouriteMoviesOrder
