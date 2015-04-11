@@ -1,6 +1,6 @@
 React = require('react')
 _ = require('lodash')
-Backend = require('../backend')
+MoviesBackend = require('../movies_backend')
 Movie = require('./movie')
 FavouriteMovie = require('./favourite_movie')
 
@@ -14,7 +14,7 @@ module.exports = React.createClass
     @loadMovies()
 
   loadMovies: () ->
-    Backend.loadMovies()
+    MoviesBackend.load()
     .done((movies) =>
       @setState({
         movies: movies
@@ -22,7 +22,7 @@ module.exports = React.createClass
     )
 
   moveFavouriteMovieUp: (movieId) ->
-    Backend.moveFavouriteMovieUp(movieId)
+    MoviesBackend.moveFavouriteUp(movieId)
     .done((movies) =>
       @setState({
         movies: movies
@@ -30,7 +30,7 @@ module.exports = React.createClass
     )
 
   moveFavouriteMovieDown: (movieId) ->
-    Backend.moveFavouriteMovieDown(movieId)
+    MoviesBackend.moveFavouriteDown(movieId)
     .done((movies) =>
       @setState({
         movies: movies
@@ -38,7 +38,7 @@ module.exports = React.createClass
     )
 
   addToFavourites: (movieId) ->
-    Backend.addToFavourites(movieId)
+    MoviesBackend.addToFavourites(movieId)
     .done((movies) =>
       @setState({
         movies: movies
@@ -46,7 +46,7 @@ module.exports = React.createClass
     )
 
   removeFromFavourites: (movieId) ->
-    Backend.removeFromFavourites(movieId)
+    MoviesBackend.removeFromFavourites(movieId)
     .done((movies) =>
       @setState({
         movies: movies
@@ -54,8 +54,8 @@ module.exports = React.createClass
     )
 
   render: () ->
-    favouriteMovies = null
-    otherMovies = null
+    favouriteMovies = <div>No favourites yet.</div>
+    otherMovies = <div>Sad story. No movies.</div>
 
     unless _.isEmpty @state.movies
       if @state.movies.favourites.length

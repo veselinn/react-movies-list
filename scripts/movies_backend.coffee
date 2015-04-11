@@ -20,7 +20,7 @@ module.exports = {
     favouriteMoviesOrder.push(movieToAdd.id)
     localStorage.setItem('favouriteMoviesIds', JSON.stringify(favouriteMoviesOrder))
 
-    @loadMovies(favouriteMoviesOrder)
+    @load(favouriteMoviesOrder)
 
   removeFromFavourites: (movieId) ->
     favouriteMoviesOrder = JSON.parse(localStorage.getItem('favouriteMoviesIds'))
@@ -29,13 +29,14 @@ module.exports = {
 
     localStorage.setItem('favouriteMoviesIds', JSON.stringify(favouriteMoviesOrder))
 
-    @loadMovies(favouriteMoviesOrder)
+    @load(favouriteMoviesOrder)
 
-  moveFavouriteMovieUp: (movieId) ->
+  moveFavouriteUp: (movieId) ->
     favouriteMoviesOrder = JSON.parse(localStorage.getItem('favouriteMoviesIds'))
 
     movieIndex = favouriteMoviesOrder.indexOf(movieId)
     if movieIndex > 0
+
       favouriteMoviesOrder = Array.prototype.concat(
         favouriteMoviesOrder.slice(0, movieIndex - 1), 
         [favouriteMoviesOrder[movieIndex], favouriteMoviesOrder[movieIndex - 1]], 
@@ -43,13 +44,14 @@ module.exports = {
 
       localStorage.setItem('favouriteMoviesIds', JSON.stringify(favouriteMoviesOrder))
 
-    @loadMovies(favouriteMoviesOrder)
+    @load(favouriteMoviesOrder)
 
-  moveFavouriteMovieDown: (movieId) ->
+  moveFavouriteDown: (movieId) ->
     favouriteMoviesOrder = JSON.parse(localStorage.getItem('favouriteMoviesIds'))
 
     movieIndex = favouriteMoviesOrder.indexOf(movieId)
     if movieIndex >= 0 && movieIndex < favouriteMoviesOrder.length - 1
+
       favouriteMoviesOrder = Array.prototype.concat(
         favouriteMoviesOrder.slice(0, movieIndex), 
         [favouriteMoviesOrder[movieIndex + 1], favouriteMoviesOrder[movieIndex]], 
@@ -57,13 +59,10 @@ module.exports = {
 
       localStorage.setItem('favouriteMoviesIds', JSON.stringify(favouriteMoviesOrder))
 
-    @loadMovies(favouriteMoviesOrder)
+    @load(favouriteMoviesOrder)
 
-  loadMovies: (favouriteMoviesOrder = JSON.parse(localStorage.getItem('favouriteMoviesIds'))) ->
+  load: (favouriteMoviesOrder = JSON.parse(localStorage.getItem('favouriteMoviesIds'))) ->
 
-    [favouriteMovies, otherMovies] = _.partition(data, (movie) ->
-      movie.id in favouriteMoviesOrder
-    )
     movies = _.reduce(data, ((memo, movie) ->
       movieIndex = favouriteMoviesOrder.indexOf(movie.id)
       if movieIndex >= 0
@@ -74,7 +73,7 @@ module.exports = {
       memo
     ), {favourites: [], other: []})
 
-    movies.other = _.sortBy(otherMovies, 'title')
+    movies.other = _.sortBy(movies.other, 'title')
 
     _returnAsync(movies)
 }
