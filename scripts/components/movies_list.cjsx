@@ -1,7 +1,8 @@
-$ = require('jquery')
 React = require('react')
 _ = require('lodash')
 Backend = require('../backend')
+Movie = require('./movie')
+FavouriteMovie = require('./favourite_movie')
 
 module.exports = React.createClass
   getInitialState: () ->
@@ -21,7 +22,6 @@ module.exports = React.createClass
     )
 
   moveFavouriteMovieUp: (movieId) ->
-
     Backend.moveFavouriteMovieUp(movieId)
     .done((movies) =>
       @setState({
@@ -60,28 +60,20 @@ module.exports = React.createClass
     unless _.isEmpty @state.movies
       if @state.movies.favourites.length
         favouriteMovies = @state.movies.favourites.map((movie) =>
-          <div key={movie.id}>
-            <button className='btn btn-default' onClick={_.partial(@removeFromFavourites, movie.id)}>
-              <span className='glyphicon glyphicon-star'></span>
-            </button>
-            <span>{movie.title}, {movie.id}</span>
-            <button className='btn btn-default' onClick={_.partial(@moveFavouriteMovieUp, movie.id)}>
-              <span className='glyphicon glyphicon-arrow-up'></span>
-            </button>
-            <button className='btn btn-default' onClick={_.partial(@moveFavouriteMovieDown, movie.id)}>
-              <span className='glyphicon glyphicon-arrow-down'></span>
-            </button>
-          </div>
+          <FavouriteMovie
+            key={movie.id}
+            movie={movie}
+            removeFromFavourites={@removeFromFavourites}
+            moveFavouriteUp={@moveFavouriteMovieUp}
+            moveFavouriteDown={@moveFavouriteMovieDown}/>
         )
 
       if @state.movies.other.length
         otherMovies = @state.movies.other.map((movie) =>
-          <div key={movie.id}>
-            <button className='btn btn-default' onClick={_.partial(@addToFavourites, movie.id)}>
-              <span className='glyphicon glyphicon-star-empty'></span>
-            </button>
-            <span>{movie.title}, {movie.id}</span>
-          </div>
+          <Movie 
+            key={movie.id}
+            movie={movie}
+            addToFavourites={@addToFavourites}/>
         )
 
     <div className='container'>
