@@ -1,3 +1,22 @@
-*, *:before, *:after {
-  box-sizing: border-box;
+.movie-info {
+  display: inline-block;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.movie-tile {
+  border: 1px solid #CCCCCC;
+  border-top: none;
+  padding: 4px;
+}
+
+.movie-tile:first-child {
+  border-top: 1px solid #CCCCCC;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.movie-tile:last-child {
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
 }

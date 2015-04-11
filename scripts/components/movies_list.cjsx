@@ -60,34 +60,41 @@ module.exports = React.createClass
     unless _.isEmpty @state.movies
       if @state.movies.favourites.length
         favouriteMovies = @state.movies.favourites.map((movie) =>
-          <FavouriteMovie
-            key={movie.id}
-            movie={movie}
-            removeFromFavourites={@removeFromFavourites}
-            moveFavouriteUp={@moveFavouriteMovieUp}
-            moveFavouriteDown={@moveFavouriteMovieDown}/>
+          <div className='movie-tile' key={movie.id}>
+            <FavouriteMovie
+              movie={movie}
+              removeFromFavourites={@removeFromFavourites}
+              moveFavouriteUp={@moveFavouriteMovieUp}
+              moveFavouriteDown={@moveFavouriteMovieDown}/>
+          </div>
         )
 
       if @state.movies.other.length
         otherMovies = @state.movies.other.map((movie) =>
-          <Movie 
-            key={movie.id}
-            movie={movie}
-            addToFavourites={@addToFavourites}/>
+          <div className='movie-tile' key={movie.id}>
+            <Movie 
+              key={movie.id}
+              movie={movie}
+              addToFavourites={@addToFavourites}/>
+          </div>
         )
 
     <div className='container'>
       <div className='row'>
         <div className='col-md-8 col-md-offset-2'>
           <div>
-            <h1>Welcome to React Movielist</h1>
+            <h1>React Movielist</h1>
             <div>
               <h2>Favourite movies</h2>
-              {favouriteMovies}
+              <div>
+                {favouriteMovies}
+              </div>
             </div>
             <div>
               <h2>Other movies</h2>
-              {otherMovies}
+              <div>
+                {otherMovies}
+              </div>
             </div>
           </div>
         </div>

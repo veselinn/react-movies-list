@@ -9,7 +9,7 @@ module.exports = React.createClass
 
   toggleExtended: () ->
     @setState({
-      extended: !@state.extended  
+      extended: !@state.extended
     })
 
   render: () ->
