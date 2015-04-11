@@ -1,5 +1,6 @@
 React = require('react')
 _ = require('lodash')
+MovieInfo = require('./movie_info')
 
 module.exports = React.createClass
   getDefaultsProps: () ->
@@ -15,5 +16,5 @@ module.exports = React.createClass
       <button className='btn btn-default' onClick={@handleAddToFavourites}>
         <span className='glyphicon glyphicon-star-empty'></span>
       </button>
-      <span>{@props.movie.title}, {@props.movie.id}</span>
+      <MovieInfo movie={@props.movie}/>
     </div>
